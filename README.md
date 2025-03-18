@@ -1,22 +1,40 @@
-# AmigoSecreto
+// El principal objetivo de este desafío es fortalecer tus habilidades en lógica de programación. Aquí deberás desarrollar la lógica para resolver el problema.
+let lista = [];
+let listaAmigos = document.getElementById('listaAmigos');
+let resultado = document.getElementById('resultado');
 
-Este proyecto es una aplicación sencilla que permite ingresar nombres de amigos en una lista y realizar un sorteo aleatorio para seleccionar a uno de ellos. La lógica se centra en manipular una lista de amigos y en realizar el sorteo de manera aleatoria.
+function agregarAmigo() {
+    let nombre = document.getElementById('amigo').value;
+    if (nombre === '') {
+        alert('Ingrese un nombre por favor');
+    } else {
+        lista.push(nombre);
+        document.getElementById('amigo').value = ''; // limpiar el campo
+        mostrarAmigo();
+    }
+}
 
-## Características
+function mostrarAmigo() {
+    listaAmigos.innerHTML = ''; // limpiar la lista antes de mostrar
+    if (lista.length > 0) {
+        // Mostrar la lista de amigos
+        for (let nombre of lista) {
+            let li = document.createElement('li'); // crear un nuevo elemento li
+            li.textContent = nombre; // asignar el nombre al li
+            listaAmigos.appendChild(li); // añadir el li al contenedor
+        }
+    } else {
+        listaAmigos.innerHTML = 'No hay lista de amigos';
+    }
+}
 
-- **Agregar amigos**: Los usuarios pueden ingresar nombres de amigos en un campo de texto.
-- **Mostrar lista de amigos**: Los nombres ingresados se muestran en una lista en la página.
-- **Sorteo aleatorio**: Un amigo es seleccionado de manera aleatoria de la lista, y el resultado se muestra en la página.
-
-## Requisitos
-
-Este proyecto no tiene dependencias externas y se ejecuta en cualquier navegador moderno que soporte JavaScript.
-
-## Instalación
-
-No es necesario instalar nada. Solo necesitas clonar este repositorio y abrir el archivo `index.html` en tu navegador.
-
-```bash
-git clone https://github.com/tu-usuario/sorteo-amigos.git
-cd sorteo-amigos
-open index.html
+function sortearAmigo() {
+    if (lista.length > 0) {
+        // Seleccionar un amigo aleatorio
+        let sortearAmigo = lista[Math.floor(Math.random() * lista.length)];
+        resultado.innerHTML += 'El amigo del sorteo es: ' + sortearAmigo + '<br>'; // Mostrar el nombre sorteado
+        console.log(sortearAmigo);
+    } else {
+        resultado.innerHTML = 'No hay amigos para sortear';
+    }
+}
